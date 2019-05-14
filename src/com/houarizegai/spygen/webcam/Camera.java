@@ -1,6 +1,7 @@
 package com.houarizegai.spygen.webcam;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamResolution;
 import com.houarizegai.spygen.global.Settings;
 
 import javax.imageio.ImageIO;
@@ -14,9 +15,10 @@ public class Camera {
         if(webcam == null) // Can't find camera
             return;
 
+        webcam.setViewSize(WebcamResolution.VGA.getSize());
         webcam.open(); // Open the camera
         try { // save the picture captured
-            ImageIO.write(webcam.getImage(), "PNG", new File(Settings.WEBCAM_PATH + "\\" + name + ".png"));
+            ImageIO.write(webcam.getImage(), "PNG", new File(Settings.WEBCAM_PATH + name + ".png"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

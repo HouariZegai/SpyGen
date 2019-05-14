@@ -14,12 +14,16 @@ public class Screenshot {
      Take screenshot and save it in folder mentioned in settings class
      with name passed in the parameter of function
       */
-    public static void TakeScreenshot(String name) {
+    public static void takeScreenshot(String name) {
         try {
             BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
-            ImageIO.write(image, "png", new File(Settings.SCREENSHOT_PATH + "\\" + name + ".png"));
+            ImageIO.write(image, "png", new File(Settings.SCREENSHOT_PATH + name + ".png"));
         } catch(AWTException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 }
