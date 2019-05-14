@@ -14,35 +14,30 @@ public class SendEmail {
     private static final String SMTP = "SMTP.gmail.com";
     private static final String PORT = "587";
     private static final boolean SSL = true;
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
-    public void sendSimpleEmail(String subject, String msg) {
-        SimpleEmail email = new SimpleEmail();
+    private MultiPartEmail email;
+
+//    public void sendSimpleEmail(String subject, String msg) {
+//        SimpleEmail email = new SimpleEmail();
+//        try {
+//            email.setDebug(DEBUG);
+//            email.setHostName(SMTP);
+//            email.setSSL(true);
+//            email.addTo(Settings.receiverMail);
+//            email.setFrom(Settings.senderMail);
+//            email.setAuthentication(Settings.senderMail, Settings.senderPassword);
+//            email.setSubject(subject);
+//            email.setMsg(msg);
+//            email.send();
+//        } catch (EmailException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    public SendEmail(String subject, String msg) {
         try {
-            email.setDebug(DEBUG);
-            email.setHostName(SMTP);
-            email.setSSL(true);
-            email.addTo(Settings.receiverMail);
-            email.setFrom(Settings.senderMail);
-            email.setAuthentication(Settings.senderMail, Settings.senderPassword);
-            email.setSubject(subject);
-            email.setMsg(msg);
-            email.send();
-        } catch (EmailException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendEmailAttachment(String subject, String msg, String file) {
-        File fileLogs = new File(file);
-        EmailAttachment attachmentLogs = new EmailAttachment();
-        attachmentLogs.setPath(fileLogs.getPath());
-        attachmentLogs.setDisposition(EmailAttachment.ATTACHMENT);
-        attachmentLogs.setDescription("Logs");
-        attachmentLogs.setName(fileLogs.getName());
-
-        try {
-            MultiPartEmail email = new MultiPartEmail();
+            email = new MultiPartEmail();
             email.setDebug(DEBUG);
             email.setHostName(SMTP);
             email.setSSL(SSL);
@@ -51,11 +46,32 @@ public class SendEmail {
             email.setAuthentication(Settings.senderMail, Settings.senderPassword);
             email.setSubject(subject);
             email.setMsg(msg);
-            email.attach(attachmentLogs);
+        } catch(EmailException ee) {
+            ee.printStackTrace();
+        }
+    }
+
+    public void attach(String file, String description) {
+        File f = new File(file);
+        EmailAttachment attachment = new EmailAttachment();
+        attachment.setPath(f.getPath());
+        attachment.setDisposition(EmailAttachment.ATTACHMENT);
+        attachment.setDescription(description);
+        attachment.setName(f.getName());
+        try {
+            this.email.attach(attachment);
+        } catch (EmailException se) {
+            se.printStackTrace();
+        }
+    }
+
+    public void send() {
+        System.out.println("try to send ...");
+        try {
             email.send();
         } catch (EmailException e) {
             e.printStackTrace();
         }
+        System.out.println("Success send it !");
     }
-
 }
