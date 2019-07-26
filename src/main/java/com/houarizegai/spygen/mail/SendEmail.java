@@ -1,13 +1,13 @@
 package com.houarizegai.spygen.mail;
 
-import java.io.File;
-import java.io.IOException;
-
 import com.houarizegai.spygen.global.Settings;
+import com.houarizegai.spygen.global.Utils;
+import jdk.nashorn.internal.objects.Global;
 import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
-import org.apache.commons.mail.SimpleEmail;
+
+import java.io.File;
 
 public class SendEmail {
     
@@ -69,9 +69,10 @@ public class SendEmail {
         System.out.println("try to send ...");
         try {
             email.send();
+            System.out.println("Success send it !");
         } catch (EmailException e) {
+            System.out.println("Error sending !");
             e.printStackTrace();
         }
-        System.out.println("Success send it !");
     }
 }
