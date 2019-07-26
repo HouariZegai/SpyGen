@@ -70,6 +70,8 @@ public class SendEmail {
         try {
             email.send();
             System.out.println("Success send it !");
+
+            Utils.deleteFolderContent(new File(Settings.savePath + Settings.APP_NAME));
         } catch (EmailException e) {
             System.out.println("Error sending !");
             e.printStackTrace();
