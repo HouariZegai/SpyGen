@@ -15,6 +15,9 @@ public class Settings {
     public static String senderPassword = "your gmail password";
     public static String receiverMail = "receiverMail@gmail.com";
 
+    /* Sending information */
+    public static int periodSendingSeconds = 10;
+
     static {
         initSaveFolders();
     }
