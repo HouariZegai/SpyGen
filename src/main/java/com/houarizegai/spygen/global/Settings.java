@@ -8,7 +8,7 @@ public class Settings {
     public static final String APP_NAME = "SpyGen";
     public static final String KEYLOGGER_PATH = savePath + APP_NAME + "/keyloggers/";
     public static final String SCREENSHOT_PATH = savePath + APP_NAME + "/screenshots/";
-    public static final String WEBCAM_PATH = savePath + APP_NAME + "SpyGen/webcam/";
+    public static final String WEBCAM_PATH = savePath + APP_NAME + "/webcam/";
 
     /* Mail information */
     public static String senderMail = "senderMail@gmail.com";

