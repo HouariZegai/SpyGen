@@ -11,12 +11,12 @@ public class Settings {
     public static final String WEBCAM_PATH = savePath + APP_NAME + "/webcam/";
 
     /* Mail information */
-    public static String senderMail = "senderMail@gmail.com";
-    public static String senderPassword = "your gmail password";
-    public static String receiverMail = "receiverMail@gmail.com";
+    public static String senderMail;
+    public static String senderPassword;
+    public static String receiverMail;
 
     /* Sending information */
-    public static int periodSendingSeconds = 10;
+    public static int periodSendingSeconds;
 
     static {
         initSaveFolders();
