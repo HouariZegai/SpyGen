@@ -1,27 +1,19 @@
-<h1 align="center">SypGen</h1>
-<p align="center">
-  <a href="https://www.java.com">
-    <img src="https://img.shields.io/badge/Java-8-red.svg">
-  </a>
-  <a href="https://raw.githubusercontent.com/HouariZegai/SpyGen/master/LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg">
-  </a>
-</p>
+# SypGen :unlock: :snake:
+[![Lincence](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-<p align="center">
-  :computer: SpyGen is a Spyware Generator for Windows systems.
-</p>
+A Spyware Generator for Windows systems. :computer:
 
-### Disclaimer
+### :warning: Disclaimer
 This project was created only for good purposes, personal use and educational purposes only.  
 The author and anyone affiliated with will not be liable for any losses and/or damages in connection with use of **any** files provided in this repository.
 
-### Features
-- [x] Keylogger
-- [x] Take Screenshot
-- [x] Webcam Capture
+### :white_check_mark: Features
+- Keylogger
+- Take Screenshot
+- Webcam Capture
 
-### Screenshots
+### :camera: Screenshots
 Console (app)          |
 :---------------------:|
 ![Console - screenshoot](screenshots/sypgen-console.PNG) |
