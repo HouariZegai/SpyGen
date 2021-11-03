@@ -1,11 +1,16 @@
 package com.houarizegai.spygen.global;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
     public static void deleteFolderContent(final File folder) {
-        for (final File fileEntry : folder.listFiles()) {
+        File[] files = folder.listFiles();
+        if (files == null)
+            return;
+
+        for (final File fileEntry : files) {
             if (fileEntry.isDirectory()) {
                 deleteFolderContent(fileEntry);
             } else {
@@ -14,10 +19,16 @@ public class Utils {
         }
     }
 
-    public static boolean isValidMail(String mail) {
-        if(mail == null)
-            return false;
+    public static void waitSeconds(int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
+    }
 
-        return mail.trim().matches("[a-zA-Z_][\\w]*[-]{0,4}[\\w]+@[a-zA-Z0-9]+.[a-zA-Z]{2,6}");
+    public static void clearScreen() {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
     }
 }

